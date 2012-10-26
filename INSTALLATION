@@ -1,0 +1,5 @@
+To install this program, copy update-repo.py into a directory on your
+$PATH and make it executable. Then copy the *_repository.py files into
+a directory on your $PYTHONPATH. Alternatively, you can copy the
+*_repository.py files into the same directory as the update-repo.py
+file. 
