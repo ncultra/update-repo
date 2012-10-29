@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 SRC_PREFIX="/Users/mdday/src/openstack/"
-https://github.com/openstack/cinder.git
+
 repos = [(SRC_PREFIX + "ceilometer", "https://github.com/stackforge/ceilometer.git"),
          (SRC_PREFIX + "cinder", "https://github.com/cinder.git"),
          (SRC_PREFIX + "glance", "https://github.com/glance.git"), 
