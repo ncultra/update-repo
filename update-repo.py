@@ -23,7 +23,9 @@ for folder, repo in repo_mod.repos:
         subprocess.call(["git", "pull"])
         subprocess.call(["git", "reset", "--hard", "master"])
     else:
-        os.chdir(repo_mod.SRC_PREFIX)
+        if not os.path.isdir(repo_mod.SRC_PREFIX):
+            os.mkdir(repo_mod.SRC_PREFIX)
+        os.chdir(repo_mod.SRC_PREFIX )
         print "cloning sources from", repo
         subprocess.call(["git", "clone", repo, folder])
 os.chdir(olddir)
