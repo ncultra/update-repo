@@ -1,37 +1,29 @@
 #!/usr/bin/python
 
 import os, sys, stat, subprocess 
+from imp import find_module, load_module
 
-from optparse import OptionParser
+if sys.argv.__len__() < 2:
+    print "Usage: ", sys.argv[0]  + " <repository module>"
+    sys.exit(1)
 
-usage = "usage: %prog [ --kvm | --openstack | --ovirt ]"
-parser = OptionParser(usage=usage)
-parser.add_option("-k", "--kvm", help="include the KVM repository module.",
-                  default=False, action="store_true")
-parser.add_option("-o", "--openstack", help="include the openstack repository module.",
-                  default=False, action="store_true")
-parser.add_option("-v", "--ovirt", help="include the ovirt repository module",
-                  default=False, action="store_true")
-(options, args) = parser.parse_args()
+this_repo = sys.argv[1]
+file, pathname, description = find_module(this_repo)
+try:
+    repo_mod = load_module(this_repo, file, pathname, description)
+finally:
+    if file:
+        file.close()
 
-if options.kvm == True:
-    from kvm_repository import repos, SRC_PREFIX 
-else:
-    if options.openstack == True:
-        from openstack_repository import repos, SRC_PREFIX
-    else:
-        if options.ovirt == True:
-            from ovirt_repository import repos, SRC_PREFIX
-        
 olddir = os.getcwd()
-for folder, repo in repos:
+for folder, repo in repo_mod.repos:
     if os.path.isdir(folder):
         print "pulling sources from", folder
         os.chdir(folder)
         subprocess.call(["git", "pull"])
         subprocess.call(["git", "reset", "--hard", "master"])
     else:
-        os.chdir(SRC_PREFIX)
+        os.chdir(repo_mod.SRC_PREFIX)
         print "cloning sources from", repo
         subprocess.call(["git", "clone", repo, folder])
 os.chdir(olddir)
