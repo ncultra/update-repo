@@ -1,7 +1,7 @@
 #/bin/bash
 
-REPOS="kvm ovirt openstack"
+REPOS="kvm_repository ovirt_repository openstack_repository"
 
 for repo in $REPOS; do
-    update-repo.py --$repo
+    update-repo.py $repo
 done
