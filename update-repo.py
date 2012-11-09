@@ -18,7 +18,7 @@ finally:
 olddir = os.getcwd()
 for folder, repo in repo_mod.repos:
     if os.path.isdir(folder):
-        print "pulling sources from", folder
+        print "pulling sources from", repo
         os.chdir(folder)
         subprocess.call(["git", "pull"])
         subprocess.call(["git", "reset", "--hard", "master"])
