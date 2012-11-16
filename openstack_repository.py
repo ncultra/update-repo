@@ -2,7 +2,7 @@
 
 SRC_PREFIX="/Users/mdday/src/openstack/"
 
-repos = [(SRC_PREFIX + "ceilometer", "git://github.com/stackforge/ceilometer.git"),
+repos = [(SRC_PREFIX + "ceilometer", "git://github.com/openstack/ceilometer.git"),
          (SRC_PREFIX + "cinder", "git://github.com/openstack/cinder.git"),
          (SRC_PREFIX + "glance", "git://github.com/openstack/glance.git"), 
          (SRC_PREFIX + "horizon", "git://github.com/openstack/horizon.git"),
