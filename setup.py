@@ -36,6 +36,5 @@ os.chmod(binpath + "update-repo.sh", 0o755)
 shutil.copy("kvm_repository.py", modpath)
 shutil.copy("ovirt_repository.py", modpath)
 shutil.copy("openstack_repository.py", modpath)
-
-
-
+shutil.copy("libvirt_repository.py", modpath)
+shutil.copy("gnulib_repository.py", modpath)
