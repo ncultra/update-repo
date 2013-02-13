@@ -26,4 +26,8 @@ repos = [     (SRC_PREFIX + "swift", "git://github.com/openstack/swift.git"),
               (SRC_PREFIX + "python-glanceclient", "git://github.com/openstack/python-glanceclient.git"),
               (SRC_PREFIX + "python-heatclient", "git://github.com/openstack/python-heatclient.git"),
               (SRC_PREFIX + "object-api", "git://github.com/openstack/object-api.git"),
-              (SRC_PREFIX + "compute-api", "git://github.com/openstack/compute-api.git")]
+              (SRC_PREFIX + "compute-api", "git://github.com/openstack/compute-api.git"),
+              (SRC_PREFIX + "oslo-incubator", "git://github.com/openstack/oslo-incubator.git"),
+              (SRC_PREFIX + "api-site", "git://github.com/openstack/api-site.git"),
+              (SRC_PREFIX + "oslo-config", "git://github.com/openstack/oslo-config.git"),
+              (SRC_PREFIX + "volume-api", "git://github.com/openstack/volume-api.git")]
