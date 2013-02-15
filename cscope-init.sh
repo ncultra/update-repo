@@ -17,7 +17,8 @@ fi
 pushd $1 &>/dev/null
 find ./ -name "*.c" -o -name "*.h" -o -name "*.py" -o \
     -name "*.sh" -o -name "*.in" -o -name "*.am" -o \
-    -name "*.l" -o -name "*.y" -o name "*.java" > cscope.files
+    -name "*.l" -o -name "*.y" -o name "*.java" \
+    -o -name "*.pm" -o -name "*.t" > cscope.files
  
 cscope -q -R -b -i cscope.files
 
