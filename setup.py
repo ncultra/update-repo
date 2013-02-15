@@ -34,6 +34,8 @@ shutil.copy("update-repo.sh", binpath)
 os.chmod(binpath + "update-repo.sh", 0o755)
 shutil.copy("cscope-init.sh", binpath)
 os.chmod(binpath + "cscope-init.sh", 0o755)
+shutil.copy("shutil.copy("buildtags.sh", binpath)
+os.chmod(binpath + "buildtags.sh", 0o755)
 
 
 shutil.copy("kvm_repository.py", modpath)

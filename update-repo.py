@@ -29,4 +29,5 @@ for folder, repo in repo_mod.repos:
         print "cloning sources from", repo
         subprocess.call(["git", "clone", repo, folder])
     subprocess.call(["cscope-init.sh", folder])
+    os.system("buildtags.sh > TAGS")
 os.chdir(olddir)
