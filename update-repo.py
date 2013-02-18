@@ -23,6 +23,7 @@ for folder, repo in repo_mod.repos:
         print "pulling sources from", repo
         os.chdir(folder)
         buffer = subprocess.check_output(["git", "pull"])
+        print buffer
         subprocess.call(["git", "reset", "--hard", "master"])
     else:
         if not os.path.isdir(repo_mod.SRC_PREFIX):
