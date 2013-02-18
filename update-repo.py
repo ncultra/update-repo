@@ -16,11 +16,13 @@ finally:
         file.close()
 
 olddir = os.getcwd()
+updated = 0
+global buffer
 for folder, repo in repo_mod.repos:
     if os.path.isdir(folder):
         print "pulling sources from", repo
         os.chdir(folder)
-        subprocess.call(["git", "pull"])
+        buffer = subprocess.check_output(["git", "pull"])
         subprocess.call(["git", "reset", "--hard", "master"])
     else:
         if not os.path.isdir(repo_mod.SRC_PREFIX):
@@ -28,6 +30,9 @@ for folder, repo in repo_mod.repos:
         os.chdir(repo_mod.SRC_PREFIX )
         print "cloning sources from", repo
         subprocess.call(["git", "clone", repo, folder])
-    subprocess.call(["cscope-init.sh", folder])
-    os.system("buildtags.sh > TAGS")
+    if ("Already up-to-date.") in buffer:
+        print "no update - skipping cscope and tags"
+    else:
+        subprocess.call(["cscope-init.sh", folder])
+        os.system("buildtags.sh > TAGS")
 os.chdir(olddir)
