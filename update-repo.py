@@ -22,8 +22,7 @@ for folder, repo in repo_mod.repos:
     if os.path.isdir(folder):
         os.chdir(folder)
         buffer = subprocess.check_output(["git", "pull"])
-        print ("pulling sources from" +  repo + "..." +  buffer)
-#        print buffer
+        print ("pulling sources from" +  " " + repo + " ... " +  buffer)
         subprocess.call(["git", "reset", "--hard", "master"])
     else:
         if not os.path.isdir(repo_mod.SRC_PREFIX):
@@ -35,5 +34,6 @@ for folder, repo in repo_mod.repos:
         print "no update - skipping cscope and tags\n"
     else:
         subprocess.call(["cscope-init.sh", folder])
+        print "rebuilding the ctags file\n"
         os.system("buildtags.sh > TAGS")
 os.chdir(olddir)
