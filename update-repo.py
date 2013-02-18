@@ -20,10 +20,10 @@ updated = 0
 global buffer
 for folder, repo in repo_mod.repos:
     if os.path.isdir(folder):
-        print "pulling sources from", repo
         os.chdir(folder)
         buffer = subprocess.check_output(["git", "pull"])
-        print buffer
+        print ("pulling sources from" +  repo + "..." +  buffer)
+#        print buffer
         subprocess.call(["git", "reset", "--hard", "master"])
     else:
         if not os.path.isdir(repo_mod.SRC_PREFIX):
@@ -32,7 +32,7 @@ for folder, repo in repo_mod.repos:
         print "cloning sources from", repo
         subprocess.call(["git", "clone", repo, folder])
     if ("Already up-to-date.") in buffer:
-        print "no update - skipping cscope and tags"
+        print "no update - skipping cscope and tags\n"
     else:
         subprocess.call(["cscope-init.sh", folder])
         os.system("buildtags.sh > TAGS")
