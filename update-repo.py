@@ -33,7 +33,8 @@ for folder, repo in repo_mod.repos:
     if ("Already up-to-date.") in buffer:
         print "no update - skipping cscope and tags\n"
     else:
+        print "rebuilding the cscope database"
         subprocess.call(["cscope-init.sh", folder])
-        print "rebuilding the ctags file\n"
+        print "\nrebuilding the ctags file\n"
         os.system("buildtags.sh > TAGS")
 os.chdir(olddir)
