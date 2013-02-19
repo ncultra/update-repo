@@ -30,7 +30,6 @@ for this_repo in repo_mod.repos:
     print folder + " " + repo + " " + branch
     if os.path.isdir(folder):
         os.chdir(folder)
-        print "executing command " + "git pull origin " + branch
         buffer = subprocess.check_output(["git", "pull", "origin", branch])
         print ("pulling sources from" +  " " + repo + "origin " + branch + " ... " +  buffer)
         subprocess.call(["git", "reset", "--hard", branch])
