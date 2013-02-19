@@ -1,8 +1,9 @@
+
 #!/usr/bin/python
 
 SRC_PREFIX="/Users/mdday/src/"
 
-repos = [(SRC_PREFIX + "kvm/", "git://git.kernel.org/pub/scm/virt/kvm/kvm.git"), 
+repos = [(SRC_PREFIX + "kvm/", "git://git.kernel.org/pub/scm/virt/kvm/kvm.git", "linux-next"), 
          (SRC_PREFIX + "qemu/", "git://git.qemu.org/qemu.git"),
          (SRC_PREFIX + "qemu-kvm/", "git://git.kernel.org/pub/scm/virt/kvm/qemu-kvm.git"),
          (SRC_PREFIX + "glusterfs/", "git://git.gluster.com/glusterfs.git"),
