@@ -31,7 +31,7 @@ for this_repo in repo_mod.repos:
     if os.path.isdir(folder):
         os.chdir(folder)
         buffer = subprocess.check_output(["git", "pull", "origin", branch])
-        print ("pulling sources from" +  " " + repo + "origin " + branch + " ... " +  buffer)
+        print ("pulling sources from " + repo + " origin " + branch + " ... " +  buffer)
         subprocess.call(["git", "reset", "--hard", branch])
     else:
         if not os.path.isdir(repo_mod.SRC_PREFIX):
