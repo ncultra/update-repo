@@ -2,15 +2,26 @@
 
 import os, sys, stat, subprocess 
 from imp import find_module, load_module
+from optparse import OptionParser
 
-if sys.argv.__len__() < 2:
-    print "Usage: ", sys.argv[0]  + " <repository module>"
-    sys.exit(1)
+usage="usage: %prog [options]. Repository is mandatory."
+parser = OptionParser(usage)
+parser.add_option("-r", "--repo", dest="repository", default="", 
+                  help="module containing git repository URLs", metavar="REPOSITORY")
+parser.add_option("-s", "--cscope", action="store_true", dest="cscope", default=False,
+                  help="If used, program will generate a cscope database for the source repository")
 
-this_repo = sys.argv[1]
-file, pathname, description = find_module(this_repo)
+parser.add_option("-t", "--ctags", action="store_true", dest="ctags", default=False, 
+                  help="If used, program will generate a TAGS file for emacs indexing the repository.")
+
+(options, args) = parser.parse_args()
+
+if len(options.repository) < 1:
+    parser.error("Must specify a git repository.")
+
+file, pathname, description = find_module(options.repository)
 try:
-    repo_mod = load_module(this_repo, file, pathname, description)
+    repo_mod = load_module(options.repository, file, pathname, description)
 finally:
     if file:
         file.close()
@@ -27,7 +38,6 @@ for this_repo in repo_mod.repos:
         branch = this_repo[2][::]
     else:
         branch = "master"
-    print folder + " " + repo + " " + branch
     if os.path.isdir(folder):
         os.chdir(folder)
         buffer = subprocess.check_output(["git", "pull", "origin", branch])
@@ -39,11 +49,10 @@ for this_repo in repo_mod.repos:
         os.chdir(repo_mod.SRC_PREFIX )
         print "cloning sources from", repo
         subprocess.call(["git", "clone", repo, folder])
-    if ("Already up-to-date.") in buffer:
-        print "no update - skipping cscope and tags\n"
-    else:
+    if options.cscope is True:
         print "rebuilding the cscope database"
         subprocess.call(["cscope-init.sh", folder])
+    if options.ctags is True:
         print "\nrebuilding the ctags file\n"
         os.system("buildtags.sh > TAGS")
 os.chdir(olddir)
