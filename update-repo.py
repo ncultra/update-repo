@@ -4,24 +4,27 @@ import os, sys, stat, subprocess
 from imp import find_module, load_module
 from optparse import OptionParser
 
-usage="usage: %prog [options]. Repository is mandatory."
+usage="usage: %prog [options] REPOSITORY\n" \
+"\t where REPOSITORY is a python module containing information\n"  \
+"\t about the remote git repository and branch, as well as the\n." \
+"\t local source directory."
+
 parser = OptionParser(usage)
-parser.add_option("-r", "--repo", dest="repository", default="", 
-                  help="module containing git repository URLs", metavar="REPOSITORY")
+
 parser.add_option("-s", "--cscope", action="store_true", dest="cscope", default=False,
-                  help="If used, program will generate a cscope database for the source repository")
+                  help="If used, program will generate a cscope database for the source repository.")
 
 parser.add_option("-t", "--ctags", action="store_true", dest="ctags", default=False, 
                   help="If used, program will generate a TAGS file for emacs indexing the repository.")
 
 (options, args) = parser.parse_args()
 
-if len(options.repository) < 1:
+if len(args) < 1:
     parser.error("Must specify a git repository.")
 
-file, pathname, description = find_module(options.repository)
+file, pathname, description = find_module(args[0])
 try:
-    repo_mod = load_module(options.repository, file, pathname, description)
+    repo_mod = load_module(args[0], file, pathname, description)
 finally:
     if file:
         file.close()
