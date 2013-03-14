@@ -1,2 +1,5 @@
 This simple python program clones and then pulls and rebases a group
 of git repositories from a remote.
+
+As an option it will build a CTAGS and cscope file for the
+repository. 
