@@ -1,9 +1,12 @@
 To install this program, run the setup.py script.
 
-setup.py --bin <location of upddate-repo.py> --mod <location of repository
+setup.py --bin <destination of upddate-repo.py> --mod <destination of repository
 modules>
 
 update-repo.py should be in a directory on your PATH environment variable,
 and the repository modules (*_repository.py) need to be in a directory
 where python will find them (update-repo.py's working directory,
 python's library directories, or PYTHONPATH)
+
+If you don't specify the bin or mod directories, setup will use
+/usr/local/bin and /usr/local/lib respectively. 
