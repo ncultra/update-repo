@@ -6,7 +6,7 @@ from optparse import OptionParser
 
 usage="usage: %prog [options] REPOSITORY\n" \
 "\t where REPOSITORY is a python module containing information\n"  \
-"\t about the remote git repository and branch, as well as the\n." \
+"\t about the remote git repository and branch, as well as the\n" \
 "\t local source directory."
 
 parser = OptionParser(usage)
