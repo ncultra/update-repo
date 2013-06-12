@@ -14,6 +14,5 @@ repos = [(SRC_PREFIX + "qemu/", "git://git.qemu.org/qemu.git"),
          (SRC_PREFIX + "spice-spice", "git://anongit.freedesktop.org/spice/spice"),
          (SRC_PREFIX + "spice-qemu", "git://anongit.freedesktop.org/spice/qemu"),
          (SRC_PREFIX + "spice-common", "git://anongit.freedesktop.org/spice/spice-common"),
-         (SRC_PREFIX + "spice-server", "git://anongit.freedesktop.org/spice/spice-server"),
          (SRC_PREFIX + "spice-protocol", "git://anongit.freedesktop.org/spice/spice-protocol") ]
 # agraf also has a ppc-for-upstream branch
