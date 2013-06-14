@@ -33,19 +33,31 @@ olddir = os.getcwd()
 updated = 0
 global buffer
 global branch
+global tag
+global cscope
+
+branch = "master"
+tag = "no"
+cscope = "no"
 
 for this_repo in repo_mod.repos:
     folder = this_repo[0][::]
     repo = this_repo[1][::]
     if len(this_repo) is 3:
-        branch = this_repo[2][::]
+        repo_options = this_repo[2]
+        try:
+            branch = repo_options["branch"]
+            tag = repo_options["tags"]
+            cscope = repo_options["cscope"]
+        except:
+            continue
     else:
         branch = "master"
     if os.path.isdir(folder):
         os.chdir(folder)
-        buffer = subprocess.check_output(["git", "pull", "origin", branch])
-        print ("pulling sources from " + repo + " origin " + branch + " ... " +  buffer)
-        subprocess.call(["git", "reset", "--hard", branch])
+        print ("pulling sources from " + repo + " origin " + str(branch) + " ... " )
+        buffer = subprocess.check_output(["git", "pull", "origin", str(branch)])
+        subprocess.call(["git", "reset", "--hard", str(branch)])
     else:
         if not os.path.isdir(repo_mod.SRC_PREFIX):
             os.mkdir(repo_mod.SRC_PREFIX)
