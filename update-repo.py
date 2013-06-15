@@ -36,23 +36,21 @@ global branch
 global tag
 global cscope
 
-branch = "master"
-tag = "no"
-cscope = "no"
-
 for this_repo in repo_mod.repos:
+    branch = "master"
+    tag = "no"
+    cscope = "no"
     folder = this_repo[0][::]
     repo = this_repo[1][::]
     if len(this_repo) is 3:
         repo_options = this_repo[2]
         try:
             branch = repo_options["branch"]
-            tag = repo_options["tags"]
+            tag = repo_options["tag"]
             cscope = repo_options["cscope"]
         except:
             continue
-    else:
-        branch = "master"
+
     if os.path.isdir(folder):
         os.chdir(folder)
         print ("pulling sources from " + repo + " origin " + str(branch) + " ... " )
@@ -64,10 +62,10 @@ for this_repo in repo_mod.repos:
         os.chdir(repo_mod.SRC_PREFIX )
         print "cloning sources from", repo
         subprocess.call(["git", "clone", repo, folder])
-    if options.cscope is True:
+    if (options.cscope is True) or ("yes" in str(cscope)):
         print "rebuilding the cscope database"
         subprocess.call(["cscope-init.sh", folder])
-    if options.ctags is True:
+    if (options.ctags is True) or ("yes" in str(tag)):
         print "\nrebuilding the ctags file\n"
         os.system("buildtags.sh > TAGS")
 os.chdir(olddir)
