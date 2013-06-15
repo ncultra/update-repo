@@ -4,7 +4,7 @@
 SRC_PREFIX="/Users/mdday/src/"
 
 repos = [(SRC_PREFIX + "kvm/", "git://git.kernel.org/pub/scm/virt/kvm/kvm.git", 
-          {"branch":"linux-next", "cscope":"yes", "tag": "no"}), 
+          {"branch":"linux-next", "cscope":"no", "tag": "no"}), 
          (SRC_PREFIX + "linux", "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"),
          (SRC_PREFIX + "linux-vfio/", "git://github.com/awilliam/linux-vfio.git", 
           {"branch": "vfio-vga-reset"}),
