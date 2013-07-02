@@ -7,9 +7,13 @@ from optparse import OptionParser
 def clone_repo(repo_spec):
 # someone has already confirmed the src dir and it is our working dir
 
+# git branch -a to show all branches
+# git branch -r to show remote branches
+## git branch --track pulse origin/pulse
+
 # clone the repo on origin/master
 #if repo options includes branch, check the existince of the branch on origin/
-    # if remote branch exists, then create and check out a  tracking branch    
+# if remote branch exists, then create and check out a  tracking branch    
     folder = repo_spec[0][::]
     if os.path.isdir(folder):
         raise Exception("Attempting to clone into a directory that already exists")
@@ -21,32 +25,31 @@ def clone_repo(repo_spec):
     olddir = os.getcwd()
     os.chdir(folder)
 
-    if len(repo) is 3:
+    if len(repo) is 3: # vanilla repo spec will have the base dir and the url 
+        # as elements (len of 2)
         options = repo_spec[2]
         try:
             repo_branch = options["branch"]
-            if len(repo_branch) is not 0:
-                # TODO: check if the remote branch exists
-                print "creating and checking out tracking branch from origin/" + repo_branch
-                subprocess.call(["git", "branch", "--track", repo_branch, "origin/" + repo_branch]) 
-                subprocess.call(["git", "checkout", repo_branch ])                
-
+            #if len(repo_branch) is not 0:
+            # TODO: check if the remote branch exists
+            print "creating and checking out tracking branch from origin/" + repo_branch
+            subprocess.call(["git", "branch", "--track", repo_branch, "origin/" + repo_branch]) 
+            subprocess.call(["git", "checkout", repo_branch ])                
+            
             repo_tag = options["tag"]
-            if len(repo_tag) is not 0:
-                print "creating or updating the ctags database for", repo
-                os.system("buildtags.sh > TAGS")
+            #if len(repo_tag) is not 0:
+            print "creating or updating the ctags database for", repo
+            os.system("buildtags.sh > TAGS")
             
             repo_cscope = options["cscope"]
-            if len(repo_cscope) is not 0:
-                print "create or updating the cscope database for", repo
-                subprocess.call(["cscope-init.sh", folder])
-
+            #if len(repo_cscope) is not 0:
+            print "create or updating the cscope database for", repo
+            subprocess.call(["cscope-init.sh", folder])
         except:
-            continue
-    
+            pass
+
     
     os.chdir(olddir)    
-
 
 
 usage="usage: %prog [options] REPOSITORY\n" \
@@ -82,6 +85,7 @@ global tag
 global cscope
 
 for this_repo in repo_mod.repos:
+
     branch = "origin/master"
     tag = "no"
     cscope = "no"
@@ -102,15 +106,5 @@ for this_repo in repo_mod.repos:
         buffer = subprocess.check_output(["git", "pull", str(branch)])
         subprocess.call(["git", "reset", "--hard", str(branch)])
     else:
-        if not os.path.isdir(repo_mod.SRC_PREFIX):
-            os.mkdir(repo_mod.SRC_PREFIX)
-        os.chdir(repo_mod.SRC_PREFIX )
-        print "cloning sources from", repo
-        subprocess.call(["git", "clone", repo, folder])
-    if (options.cscope is True) or ("yes" in str(cscope)):
-        print "rebuilding the cscope database"
-        subprocess.call(["cscope-init.sh", folder])
-    if (options.ctags is True) or ("yes" in str(tag)):
-        print "\nrebuilding the ctags file\n"
-        os.system("buildtags.sh > TAGS")
+        clone_repo(this_repo)
 os.chdir(olddir)
