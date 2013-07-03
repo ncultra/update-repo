@@ -78,7 +78,7 @@ def apply_repo_options(repo_spec):
           print "checking out (possibly first creating) tracking branch from origin/" + repo_branch
           local_branch = local_branch_exists(repo_spec)
           if "false" in local_branch:
-              subprocess.call(["git", "branch", "--track", repo_branch, "origin/" + repo_branch]) 
+              subprocess.call(["git", "branch", "--track", repo_branch, repo_branch]) 
 
           current_branch = subprocess.check_output(["git", "branch"])
           if ("* " + str(branch) in current_branch):
