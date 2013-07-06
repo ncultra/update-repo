@@ -7,7 +7,7 @@ default /usr/local/bin, /usr/local/lib
 
 '''
 
-import os, sys, shutil, stat
+import os, sys, shutil, stat, glob
 from optparse import OptionParser
 
 binpath = "/usr/local/bin/"
@@ -28,23 +28,15 @@ if options.binary:
 if options.mod:
     modpath = options.mod + "/"
 
-shutil.copy("update-repo.py", binpath)
-os.chmod(binpath + "update-repo.py", 0o755)
-shutil.copy("update-repo.sh", binpath)
-os.chmod(binpath + "update-repo.sh", 0o755)
-shutil.copy("cscope-init.sh", binpath)
-os.chmod(binpath + "cscope-init.sh", 0o755)
-shutil.copy("buildtags.sh", binpath)
-os.chmod(binpath + "buildtags.sh", 0o755)
+for f in ["update-repo.py", 
+          "update-repo.sh", 
+          "cscope-init.sh", 
+          "buildtags.sh"]:
+    print "copying " + f + " to " + binpath
+    shutil.copy(f, binpath)
+    print "chmod: " + f + " 0755"
+    os.chmod(binpath + f, 0o755)
 
-shutil.copy("glusterfs_repository.py", modpath)
-shutil.copy("gnulib_repository.py", modpath)
-shutil.copy("kvm_repository.py", modpath) 
-shutil.copy("libvirt_repository.py", modpath)
-shutil.copy("open_efs_repository.py", modpath)
-shutil.copy("openstack_repository.py", modpath)
-shutil.copy("ovirt_repository.py", modpath)
-shutil.copy("qemu-rdma_repository.py", modpath)
-shutil.copy("nahanni_repository.py", modpath)
-shutil.copy("xen_repository.py", modpath)
-shutil.copy("update-repo_repository.py", modpath)
+for f in glob.glob("*_repository.py"):
+    print "copying " + f + " to " + modpath
+    shutil.copy(f, modpath)
