@@ -67,7 +67,7 @@ def apply_repo_options(repo_spec):
       olddir = os.getcwd()
       os.chdir(folder)
       options = repo_spec[2]
-
+      print "apply repo options " + str(options)
       try:
           repo_branch = options["branch"]
           print "checking for remote branch origin/" + repo_branch
@@ -78,7 +78,7 @@ def apply_repo_options(repo_spec):
           print "checking out (possibly first creating) tracking branch from origin/" + repo_branch
           local_branch = local_branch_exists(repo_spec)
           if "false" in local_branch:
-              subprocess.call(["git", "branch", "--track", repo_branch, repo_branch]) 
+              subprocess.call(["git", "branch", "--track", repo_branch, "origin/" + repo_branch]) 
 
           current_branch = subprocess.check_output(["git", "branch"])
           if ("* " + str(branch) in current_branch):
@@ -162,7 +162,7 @@ for this_repo in repo_mod.repos:
         pull_repo(this_repo)
     else:
         clone_repo(this_repo)
-
+    print "checking length of repo spec: " + str(len(this_repo))
     if len(this_repo) is 3: # this repo spec has an options hash
       apply_repo_options(this_repo)
   
