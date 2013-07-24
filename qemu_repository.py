@@ -11,9 +11,4 @@ repos = [(SRC_PREFIX + "qemu/", "git://git.qemu.org/qemu.git"),
          (SRC_PREFIX + "qemu-agraf/", "git://github.com/agraf/qemu.git", "ppc-for-upstream"),
          (SRC_PREFIX + "qemu-vfio/", "git://github.com/awilliam/qemu-vfio.git", "vfio-for-qemu"),
          (SRC_PREFIX + "qemu-aliguori/", "git://github.com/aliguori/qemu.git"),
-         (SRC_PREFIX + "qemu-bonzini/", "git://github.com/bonzini/qemu.git", "rcu"),
-         (SRC_PREFIX + "spice-spice", "git://anongit.freedesktop.org/spice/spice"),
-         (SRC_PREFIX + "spice-qemu", "git://anongit.freedesktop.org/spice/qemu"),
-         (SRC_PREFIX + "spice-common", "git://anongit.freedesktop.org/spice/spice-common"),
-         (SRC_PREFIX + "spice-protocol", "git://anongit.freedesktop.org/spice/spice-protocol") ]
-# agraf also has a ppc-for-upstream branch
+         (SRC_PREFIX + "qemu-bonzini/", "git://github.com/bonzini/qemu.git", "rcu")]
